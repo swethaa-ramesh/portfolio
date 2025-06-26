@@ -6,11 +6,6 @@ import PageTransition from '../components/PageTransition';
 import ParticlesBackground from '../components/ParticlesBackground';
 import { FaEnvelope, FaLinkedin } from 'react-icons/fa';
 
-// Initialize EmailJS with your public key
-useEffect(() => {
-  emailjs.init("gzvixw2Ysv3njj8pz");
-}, []);
-
 const Container = styled.div`
   min-height: 100vh;
   width: 100%;
@@ -231,35 +226,62 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  useEffect(() => {
+    // Initialize EmailJS
+    try {
+      emailjs.init("gzvixw2Ysv3njj8pz");
+      console.log("EmailJS initialized successfully");
+    } catch (error) {
+      console.error("Error initializing EmailJS:", error);
+    }
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Form submission started");
+
     if (!formData.name || !formData.email || !formData.message) {
       alert('Please fill in all required fields');
       return;
     }
+
     setIsSubmitting(true);
+    console.log("Preparing to send email with data:", {
+      name: formData.name,
+      email: formData.email,
+      messageLength: formData.message.length
+    });
 
     try {
+      console.log("Attempting to send email...");
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        to_name: 'Swethaa',
+        reply_to: formData.email
+      };
+
       const result = await emailjs.send(
-        'service_mndnedb', // Your EmailJS service ID
-        'template_01y6zwq', // Your EmailJS template ID
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          message: formData.message,
-          to_name: 'Swethaa'
-        }
+        'service_mndnedb',
+        'template_01y6zwq',
+        templateParams
       );
+
+      console.log("EmailJS Response:", result);
       
       if (result.status === 200) {
         alert('Message sent successfully!');
         setFormData({ name: '', email: '', message: '' });
+      } else {
+        throw new Error(`Unexpected status: ${result.status}`);
       }
     } catch (error) {
-      console.error('Error sending email:', error);
-      alert('Failed to send message. Please try again.');
+      console.error('Detailed error sending email:', error);
+      alert('Failed to send message. Please try again. If the problem persists, please contact me directly via LinkedIn.');
     } finally {
       setIsSubmitting(false);
+      console.log("Form submission completed");
     }
   };
 
