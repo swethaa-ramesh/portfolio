@@ -250,17 +250,19 @@ const Contact = () => {
     try {
       console.log("Attempting to send email...");
       const templateParams = {
-        user_name: formData.name,
-        user_email: formData.email,
-        message: formData.message,
-        to_name: 'Swethaa'
+        name: formData.name,
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message
       };
+
+      console.log("Template params:", templateParams);
 
       const result = await emailjs.send(
         'service_mndnedb',
         'template_01y6zwq',
         templateParams,
-        'gzvixw2Ysv3njj8pz' // Add public key here as well
+        'gzvixw2Ysv3njj8pz'
       );
 
       console.log("EmailJS Response:", result);
@@ -271,9 +273,11 @@ const Contact = () => {
       } else {
         throw new Error(`Unexpected status: ${result.status}`);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Detailed error sending email:', error);
-      alert('Failed to send message. Please try again. If the problem persists, please contact me directly via LinkedIn.');
+      const errorMessage = error.text || error.message || 'Unknown error occurred';
+      console.error('Error message:', errorMessage);
+      alert(`Failed to send message: ${errorMessage}. Please try again or contact me directly via LinkedIn.`);
     } finally {
       setIsSubmitting(false);
     }
@@ -318,6 +322,7 @@ const Contact = () => {
               </Label>
               <Input
                 type="text"
+                name="name"
                 placeholder="Enter your name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -331,6 +336,7 @@ const Contact = () => {
               </Label>
               <Input
                 type="email"
+                name="from_email"
                 placeholder="Enter your email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -343,6 +349,7 @@ const Contact = () => {
                 <Required>*</Required>
               </Label>
               <TextArea
+                name="message"
                 placeholder="Write your message here"
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
