@@ -246,26 +246,21 @@ const Contact = () => {
     }
 
     setIsSubmitting(true);
-    console.log("Preparing to send email with data:", {
-      name: formData.name,
-      email: formData.email,
-      messageLength: formData.message.length
-    });
 
     try {
       console.log("Attempting to send email...");
       const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
+        user_name: formData.name,
+        user_email: formData.email,
         message: formData.message,
-        to_name: 'Swethaa',
-        reply_to: formData.email
+        to_name: 'Swethaa'
       };
 
       const result = await emailjs.send(
         'service_mndnedb',
         'template_01y6zwq',
-        templateParams
+        templateParams,
+        'gzvixw2Ysv3njj8pz' // Add public key here as well
       );
 
       console.log("EmailJS Response:", result);
@@ -281,7 +276,6 @@ const Contact = () => {
       alert('Failed to send message. Please try again. If the problem persists, please contact me directly via LinkedIn.');
     } finally {
       setIsSubmitting(false);
-      console.log("Form submission completed");
     }
   };
 
