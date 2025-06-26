@@ -4,45 +4,54 @@ import { FaGithub, FaImage, FaExternalLinkAlt } from 'react-icons/fa';
 import PageTransition from '../components/PageTransition';
 import ParticlesBackground from '../components/ParticlesBackground';
 
-const ProjectsContainer = styled(motion.div)`
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+const ProjectsContainer = styled.section`
   min-height: 100vh;
-`;
-
-const ContentWrapper = styled.div`
-  max-width: 1400px;
   width: 100%;
-  margin: 0 auto;
-  padding: 0 1rem;
-  z-index: 1;
+  padding: 4rem 0;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   @media (max-width: 768px) {
-    padding: 0 1rem;
+    padding: 3rem 0;
   }
 `;
 
-const ProjectGrid = styled(motion.div)`
+const ContentWrapper = styled.div`
+  max-width: 1400px;
+  width: 90%;
+  margin: 0 auto;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  @media (max-width: 1400px) {
+    width: 95%;
+  }
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+`;
+
+const ProjectGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   width: 100%;
-  margin-top: 2rem;
-  padding: 0 1rem;
+  margin-top: 3rem;
 
   @media (max-width: 1199px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.75rem;
   }
 
   @media (max-width: 768px) {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: 1fr;
     gap: 1.5rem;
-    padding: 0 0.5rem;
+    margin-top: 2rem;
   }
 `;
 
@@ -54,8 +63,6 @@ const Title = styled.h2`
   position: relative;
   display: inline-block;
   text-align: left;
-  align-self: flex-start;
-  margin-left: 1rem;
   
   &:after {
     content: '';
@@ -69,7 +76,7 @@ const Title = styled.h2`
   }
 `;
 
-const ProjectCard = styled(motion.div)<{ projectId: number }>`
+const ProjectCard = styled(motion.div)`
   background: rgba(42, 42, 42, 0.8);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -80,13 +87,11 @@ const ProjectCard = styled(motion.div)<{ projectId: number }>`
   display: flex;
   flex-direction: column;
   height: 400px;
-  transform: translateZ(0);
-  will-change: transform;
-  transition: all 0.2s ease-out;
+  transition: all 0.3s ease;
   width: 100%;
 
   &:hover {
-    transform: translateY(-4px);
+    transform: translateY(-5px);
     border-color: var(--accent);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 
@@ -120,73 +125,57 @@ const ProjectImage = styled.div<{ imageUrl?: string }>`
     background-position: center;
     background-repeat: no-repeat;
     opacity: 0.9;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.5s ease;
   }
 `;
 
-const ProjectContent = styled.div<{ projectId: number }>`
-  padding: 0.75rem;
+const ProjectContent = styled.div`
+  padding: 1rem;
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  height: 200px;
+  gap: 0.5rem;
 `;
 
-const ProjectTitle = styled.h3<{ projectId: number }>`
-  font-size: 1.2rem;
+const ProjectTitle = styled.h3`
+  font-size: 1.25rem;
   color: var(--text);
   margin: 0;
-  padding: 0;
-  line-height: 1.2;
   font-weight: 600;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  height: 2.9rem;
-  margin-bottom: 0.2rem;
   transition: color 0.3s ease;
 `;
 
 const ProjectDescription = styled.p`
   color: var(--text-secondary);
-  line-height: 1.4;
+  line-height: 1.5;
   margin: 0;
-  padding: 0;
-  font-size: 1rem;
+  font-size: 0.95rem;
   opacity: 0.8;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  height: 4rem;
 `;
 
 const TechStack = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem;
+  gap: 0.5rem;
   margin-top: auto;
-  padding: 0;
-  min-height: 1.5rem;
+  padding-top: 1rem;
 `;
 
 const TechTag = styled.span`
   background: rgba(255, 255, 255, 0.08);
-  padding: 0.3rem 0.6rem;
+  padding: 0.35rem 0.7rem;
   border-radius: 4px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--text);
   transition: all 0.3s ease;
-  white-space: nowrap;
-  line-height: 1.2;
-  transform-origin: center;
 
   &:hover {
     background: var(--accent);
     color: var(--background);
-    transform: scale(1.05);
   }
 `;
 
@@ -198,11 +187,12 @@ const IconOverlay = styled.div`
   bottom: 0;
   background: rgba(0, 0, 0, 0.7);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
   opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: 2;
+  transition: opacity 0.3s ease;
+  z-index: 1;
 
   ${ProjectCard}:hover & {
     opacity: 1;
@@ -210,35 +200,20 @@ const IconOverlay = styled.div`
 `;
 
 const IconLink = styled.a`
-  color: var(--text);
-  font-size: 1.8rem;
-  margin: 0 1rem;
-  transition: all 0.3s ease;
-  z-index: 3;
+  color: #ffffff;
+  font-size: 1.5rem;
+  padding: 0.8rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translateY(20px);
-  opacity: 0;
-
-  ${ProjectCard}:hover & {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  transition: all 0.3s ease;
+  z-index: 2;
 
   &:hover {
-    color: var(--accent);
-    transform: scale(1.1) !important;
-  }
-
-  &:nth-child(1) {
-    transition-delay: 0.1s;
-  }
-  &:nth-child(2) {
-    transition-delay: 0.2s;
-  }
-  &:nth-child(3) {
-    transition-delay: 0.3s;
+    background: var(--accent);
+    transform: scale(1.1);
   }
 `;
 
@@ -328,42 +303,50 @@ const Projects = () => {
         <ParticlesBackground />
         <ContentWrapper>
           <Title>My Projects</Title>
-          <ProjectGrid
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}
-          >
+          <ProjectGrid>
             {projects.map((project) => (
               <ProjectCard
                 key={project.id}
-                projectId={project.id}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.3 }}
               >
-                <ProjectImage className="project-image" imageUrl={project.imageUrl}>
-                  {(project.githubLink || project.liveLink || project.imageLink) && (
-                    <IconOverlay>
-                      {project.githubLink && (
-                        <IconLink href={project.githubLink} target="_blank" rel="noopener noreferrer">
-                          <FaGithub />
-                        </IconLink>
-                      )}
-                      {project.liveLink && (
-                        <IconLink href={project.liveLink} target="_blank" rel="noopener noreferrer">
-                          <FaExternalLinkAlt />
-                        </IconLink>
-                      )}
-                      {project.imageLink && (
-                        <IconLink href={project.imageLink} target="_blank" rel="noopener noreferrer">
-                          <FaImage />
-                        </IconLink>
-                      )}
-                    </IconOverlay>
-                  )}
+                <ProjectImage imageUrl={project.imageUrl}>
+                  <IconOverlay>
+                    {project.githubLink && (
+                      <IconLink 
+                        href={project.githubLink} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        aria-label="View GitHub Repository"
+                      >
+                        <FaGithub />
+                      </IconLink>
+                    )}
+                    {project.liveLink && (
+                      <IconLink 
+                        href={project.liveLink} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        aria-label="View Live Project"
+                      >
+                        <FaExternalLinkAlt />
+                      </IconLink>
+                    )}
+                    {project.imageLink && (
+                      <IconLink 
+                        href={project.imageLink} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        aria-label="View Project Image"
+                      >
+                        <FaImage />
+                      </IconLink>
+                    )}
+                  </IconOverlay>
                 </ProjectImage>
-                <ProjectContent projectId={project.id}>
-                  <ProjectTitle className="project-title" projectId={project.id}>{project.title}</ProjectTitle>
+                <ProjectContent>
+                  <ProjectTitle className="project-title">{project.title}</ProjectTitle>
                   <ProjectDescription>{project.description}</ProjectDescription>
                   <TechStack>
                     {project.techStack.map((tech, index) => (
