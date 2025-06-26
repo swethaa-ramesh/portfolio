@@ -1,19 +1,14 @@
-import { useState } from 'react';
-import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import styled from 'styled-components';
 import { FaGithub, FaImage, FaExternalLinkAlt } from 'react-icons/fa';
-import type { Variants } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
 import ParticlesBackground from '../components/ParticlesBackground';
 
-const ProjectsContainer = styled.section`
+const ProjectsContainer = styled(motion.div)`
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
   min-height: 100vh;
-  width: 100%;
-  padding: 2rem 1rem;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
 
 const ContentWrapper = styled.div`
@@ -325,16 +320,6 @@ const projects: Project[] = [
     liveLink: "https://swethaa-ramesh.github.io/ML_FinalAssignment_CS-5805/"
   },
 ];
-
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.2
-    },
-  },
-};
 
 const Projects = () => {
   return (

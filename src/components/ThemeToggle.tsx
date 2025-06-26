@@ -3,21 +3,16 @@ import { motion } from 'framer-motion';
 import { useTheme } from '../contexts/ThemeContext';
 
 const ToggleButton = styled(motion.button)`
-  background: none;
+  background: rgba(0, 245, 255, 0.1);
   border: 2px solid var(--accent);
   border-radius: 30px;
   width: 50px;
   height: 26px;
   position: relative;
-  cursor: pointer;
+  cursor: default;
   padding: 2px;
   display: flex;
   align-items: center;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background: rgba(0, 245, 255, 0.1);
-  }
 `;
 
 const ToggleThumb = styled(motion.div)`
@@ -30,26 +25,19 @@ const ToggleThumb = styled(motion.div)`
   justify-content: center;
   color: var(--primary);
   font-size: 12px;
+  margin-left: 24px;
 `;
 
 const ThemeToggle = () => {
-  const { theme, toggleTheme } = useTheme();
+  useTheme(); // Keep the hook to maintain context subscription
 
   return (
     <ToggleButton
-      onClick={toggleTheme}
-      aria-label="Toggle theme"
+      aria-label="Dark theme indicator"
       initial={false}
-      animate={{ backgroundColor: theme === 'dark' ? 'rgba(0, 245, 255, 0.1)' : 'transparent' }}
     >
-      <ToggleThumb
-        initial={false}
-        animate={{
-          x: theme === 'dark' ? 24 : 0,
-        }}
-        transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      >
-        {theme === 'dark' ? '🌙' : '☀️'}
+      <ToggleThumb>
+        🌙
       </ToggleThumb>
     </ToggleButton>
   );

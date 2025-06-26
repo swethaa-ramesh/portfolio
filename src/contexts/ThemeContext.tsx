@@ -3,6 +3,7 @@ import type { Theme } from '../styles/theme';
 
 interface ThemeContextType {
   theme: Theme;
+  // We're using a fixed dark theme, so no toggle function needed
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);

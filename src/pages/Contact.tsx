@@ -1,32 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import PageTransition from '../components/PageTransition';
 import ParticlesBackground from '../components/ParticlesBackground';
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaGithub, FaLinkedin, FaDiscord, FaCalendarAlt, FaClock, FaCode } from 'react-icons/fa';
+import { FaEnvelope, FaLinkedin } from 'react-icons/fa';
 
 // Initialize EmailJS
 emailjs.init('gzvixw2Ysv3njj8pz');
 
-const Container = styled.div`
+const ContactContainer = styled.div`
   min-height: 100vh;
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
+  padding: 2rem 1rem;
   position: relative;
-  z-index: 1;
-  padding: 2rem;
-  gap: 4rem;
-  max-width: 1200px;
-  margin: 0 auto;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    padding: 2rem 1.5rem;
-    gap: 2rem;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const WelcomeText = styled(motion.div)`
@@ -101,49 +91,6 @@ const ContactInfo = styled(motion.div)`
   @media (max-width: 768px) {
     padding-left: 0;
     width: 100%;
-  }
-`;
-
-const ContactItem = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: 1.25rem;
-
-  svg {
-    font-size: 1.1rem;
-    color: #6366f1;
-    margin-top: 0.25rem;
-    opacity: 0.9;
-  }
-
-  div {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  h4 {
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #ffffff;
-  }
-
-  p {
-    margin: 0;
-    color: #71717a;
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-
-  a {
-    color: #6366f1;
-    text-decoration: none;
-    transition: color 0.2s;
-
-    &:hover {
-      color: #818cf8;
-    }
   }
 `;
 
@@ -350,7 +297,7 @@ const Contact = () => {
   return (
     <PageTransition>
       <ParticlesBackground />
-      <Container>
+      <ContactContainer>
         <ContactInfo
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -453,7 +400,7 @@ const Contact = () => {
             )}
           </Form>
         </FormPanel>
-      </Container>
+      </ContactContainer>
     </PageTransition>
   );
 };

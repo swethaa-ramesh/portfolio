@@ -1,5 +1,5 @@
-import { useCallback } from 'react';
-import { Particles } from '@tsparticles/react';
+import { useEffect, useState } from 'react';
+import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { type Engine } from '@tsparticles/engine';
 import { loadSlim } from '@tsparticles/slim';
 import styled from 'styled-components';
@@ -14,15 +14,24 @@ const ParticlesContainer = styled.div`
 `;
 
 const ParticlesBackground = () => {
-  const particlesInit = useCallback(async (engine: Engine) => {
-    await loadSlim(engine);
+  const [init, setInit] = useState(false);
+
+  useEffect(() => {
+    initParticlesEngine(async (engine: Engine) => {
+      await loadSlim(engine);
+    }).then(() => {
+      setInit(true);
+    });
   }, []);
+
+  if (!init) {
+    return null;
+  }
 
   return (
     <ParticlesContainer>
       <Particles
         id="tsparticles"
-        init={particlesInit}
         options={{
           background: {
             color: {
@@ -53,7 +62,6 @@ const ParticlesBackground = () => {
             number: {
               density: {
                 enable: true,
-                area: 800,
               },
               value: 80,
             },
