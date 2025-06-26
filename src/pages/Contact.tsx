@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
@@ -6,8 +6,10 @@ import PageTransition from '../components/PageTransition';
 import ParticlesBackground from '../components/ParticlesBackground';
 import { FaEnvelope, FaLinkedin } from 'react-icons/fa';
 
-// Initialize EmailJS
-emailjs.init('gzvixw2Ysv3njj8pz');
+// Initialize EmailJS with your public key
+useEffect(() => {
+  emailjs.init("gzvixw2Ysv3njj8pz");
+}, []);
 
 const Container = styled.div`
   min-height: 100vh;
@@ -239,12 +241,13 @@ const Contact = () => {
 
     try {
       const result = await emailjs.send(
-        'service_xxxxxxx',
-        'template_xxxxxxx',
+        'service_mndnedb', // Your EmailJS service ID
+        'template_01y6zwq', // Your EmailJS template ID
         {
           from_name: formData.name,
           from_email: formData.email,
           message: formData.message,
+          to_name: 'Swethaa'
         }
       );
       
@@ -253,6 +256,7 @@ const Contact = () => {
         setFormData({ name: '', email: '', message: '' });
       }
     } catch (error) {
+      console.error('Error sending email:', error);
       alert('Failed to send message. Please try again.');
     } finally {
       setIsSubmitting(false);
