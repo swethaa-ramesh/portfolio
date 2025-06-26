@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import PageTransition from '../components/PageTransition';
 import ParticlesBackground from '../components/ParticlesBackground';
-import { FaEnvelope, FaLinkedin } from 'react-icons/fa';
+import { FaEnvelope, FaLinkedin, FaCheckCircle } from 'react-icons/fa';
 
 const Container = styled.div`
   min-height: 100vh;
@@ -218,6 +218,64 @@ const SubmitButton = styled(motion.button)`
   }
 `;
 
+const SuccessOverlay = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+const SuccessMessage = styled(motion.div)`
+  background: rgba(42, 42, 42, 0.95);
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  svg {
+    font-size: 3rem;
+    color: #10b981;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  button {
+    background: var(--accent);
+    color: var(--background);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 229, 255, 0.2);
+    }
+  }
+`;
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -225,6 +283,7 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     // Initialize EmailJS
@@ -268,7 +327,7 @@ const Contact = () => {
       console.log("EmailJS Response:", result);
       
       if (result.status === 200) {
-        alert('Message sent successfully!');
+        setShowSuccess(true);
         setFormData({ name: '', email: '', message: '' });
       } else {
         throw new Error(`Unexpected status: ${result.status}`);
@@ -370,6 +429,33 @@ const Contact = () => {
           </Form>
         </FormPanel>
       </Container>
+      <AnimatePresence>
+        {showSuccess && (
+          <SuccessOverlay
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <SuccessMessage
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ type: "spring", duration: 0.5 }}
+            >
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.2, type: "spring" }}
+              >
+                <FaCheckCircle />
+              </motion.div>
+              <h3>Message Sent!</h3>
+              <p>Thank you for reaching out. I'll get back to you soon!</p>
+              <button onClick={() => setShowSuccess(false)}>Close</button>
+            </SuccessMessage>
+          </SuccessOverlay>
+        )}
+      </AnimatePresence>
     </PageTransition>
   );
 };
