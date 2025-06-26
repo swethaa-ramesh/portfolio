@@ -212,20 +212,13 @@ const SubmitButton = styled(motion.button)`
   &:active {
     transform: translateY(0);
   }
-`;
 
-const SuccessMessage = styled(motion.div)`
-  color: #10b981;
-  font-size: 0.95rem;
-  text-align: center;
-  margin-top: 1rem;
-`;
-
-const ErrorMessage = styled(motion.div)`
-  color: #ef4444;
-  font-size: 0.95rem;
-  text-align: center;
-  margin-top: 1rem;
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
 `;
 
 const Contact = () => {
