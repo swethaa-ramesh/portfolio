@@ -93,8 +93,4 @@ Visit the live site: https://swethaa-ramesh-portfolio.netlify.app/
 
 
 
-MIT License - feel free to use this code for your own portfolio!
 
-## Questions?
-
-Feel free to reach out if you have any questions or suggestions!
