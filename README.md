@@ -75,27 +75,9 @@ npm run dev
 npm run build
 ```
 
-## 📧 Contact Form
-
-The contact form uses EmailJS for free email sending:
-
-- No backend required
-- Messages go directly to your email
-- Free tier includes 200 emails/month
-- Visitors can contact you without any cost
-
-## ✨ Features
-
-- 🎨 Modern UI with smooth animations
-- 📱 Fully responsive design
-- 💌 Free contact form integration
-- 🌙 Dark/Light mode
-- 🚀 Fast loading with Vite
-- 🎭 Interactive particle backgrounds
-
 ## Live Demo
 
-Visit the live site: [Your Portfolio URL will be here after deployment]
+Visit the live site: https://swethaa-ramesh-portfolio.netlify.app/
 
 ## Technologies Used
 
@@ -109,7 +91,7 @@ Visit the live site: [Your Portfolio URL will be here after deployment]
 - React Icons
 - Three.js / React Three Fiber
 
-## License
+
 
 MIT License - feel free to use this code for your own portfolio!
 
