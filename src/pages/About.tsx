@@ -262,7 +262,7 @@ const About: FC = () => {
                 <FaBriefcase />
               </IconWrapper>
               <CardLabel>Looking for</CardLabel>
-              <CardText>Full-time opportunities<br />Available from June 2025</CardText>
+              <CardText>Full-time opportunities<br /></CardText>
             </InfoCard>
           </InfoGrid>
 
