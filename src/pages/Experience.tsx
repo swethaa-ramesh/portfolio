@@ -208,7 +208,7 @@ const experienceData = [
     company: "Emotive Computing LLC",
     companyUrl: "https://www.emotivecomputingplatform.com/",
     role: "Software Engineer",
-    duration: "May 2024 - June 2025",
+    duration: "May 2024 - Present",
     location: "Virginia, United States",
     description: "Developed an AI-powered content recommendation system for neurodivergent users, using a RAG pipeline with FAISS and a fine-tuned DistilBERT model. Built a scalable FastAPI backend on AWS for real-time, context-aware multimedia search, leading to a 67% boost in user engagement and 30% lower latency.",
     technologies: ["RAG", "DistilBERT", "FAISS", "AI", "FastAPI", "AWS", "Python"]
